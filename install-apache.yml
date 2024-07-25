@@ -1,0 +1,23 @@
+---
+- name: "Apache installation"
+  hosts: all
+  become: yes
+  tasks:
+    - name: "Install package apache"
+      apt:
+        name: "apache2"
+        state: "present"
+    
+    - name: "Start apache service"
+      service:
+        name: "apache2"
+        state: "started"
+        enabled: yes
+
+    - name: "Copy test.html"
+      copy:
+        src: "/home/hugo/test.html"
+        dest: "/var/www/html/test.html"
+        owner: "www-data"
+        group: "www-data"
+        mode: '0644'
